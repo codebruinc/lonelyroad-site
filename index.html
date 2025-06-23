@@ -26,6 +26,16 @@
     <link rel="canonical" href="https://lonelyroad.app/">
     
     <style>
+        :root {
+            --primary-dark: #1a1a1a;
+            --primary-black: #000000;
+            --primary-cream: #E6D5C3;
+            --light-cream: #F5F0E8;
+            --dark-cream: #D4C2A8;
+            --text-dark: #2d2d2d;
+            --text-light: #666;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -35,8 +45,9 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--primary-dark) 50%, var(--primary-cream) 100%);
+            min-height: 100vh;
         }
 
         .container {
@@ -46,247 +57,392 @@
         }
 
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(230, 213, 195, 0.95);
+            backdrop-filter: blur(20px);
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         nav {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 1rem 0;
+            padding: 1.5rem 0;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #4a5568;
+            gap: 15px;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-black);
+            text-transform: lowercase;
+            letter-spacing: -0.5px;
         }
 
         .logo img {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .hero {
-            padding: 120px 0 80px;
+            padding: 150px 0 100px;
             text-align: center;
-            color: white;
+            color: var(--primary-cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 20%, rgba(230, 213, 195, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: -1px;
         }
 
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            max-width: 600px;
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            max-width: 650px;
             margin-left: auto;
             margin-right: auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            line-height: 1.7;
         }
 
         .cta-button {
             display: inline-block;
-            background: #ff6b6b;
-            color: white;
-            padding: 15px 30px;
+            background: var(--primary-cream);
+            color: var(--primary-black);
+            padding: 20px 40px;
             text-decoration: none;
             border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--primary-cream);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            background: var(--light-cream);
         }
 
         .features {
-            background: white;
-            padding: 80px 0;
+            background: var(--light-cream);
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--primary-black), var(--light-cream));
         }
 
         .features h2 {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #2d3748;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            color: var(--primary-black);
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
             margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
         }
 
         .feature-card {
             text-align: center;
-            padding: 2rem;
-            border-radius: 15px;
-            background: #f7fafc;
-            border: 1px solid #e2e8f0;
-            transition: transform 0.3s ease;
+            padding: 3rem 2rem;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--dark-cream);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-black);
+            background: rgba(255, 255, 255, 1);
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-black);
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
         .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
         }
 
         .screenshots {
-            background: #f8f9fa;
-            padding: 80px 0;
+            background: var(--primary-black);
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screenshots::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--light-cream), var(--primary-black));
         }
 
         .screenshots h2 {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #2d3748;
+            font-size: 3rem;
+            margin-bottom: 5rem;
+            color: var(--primary-cream);
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
         }
 
         .screenshots-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
         .screenshot {
-            border-radius: 20px;
+            border-radius: 30px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 3px solid var(--dark-cream);
+            background: var(--primary-cream);
+            padding: 10px;
         }
 
         .screenshot:hover {
-            transform: scale(1.05);
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+            border-color: var(--primary-cream);
         }
 
         .screenshot img {
             width: 100%;
             height: auto;
             display: block;
+            border-radius: 20px;
         }
 
         .email-signup {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 80px 0;
-            color: white;
+            background: linear-gradient(135deg, var(--primary-cream) 0%, var(--light-cream) 100%);
+            padding: 120px 0;
+            color: var(--primary-black);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .email-signup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--primary-black), var(--primary-cream));
         }
 
         .email-signup h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
         }
 
         .email-signup p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
         }
 
         .email-form {
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
             justify-content: center;
+            position: relative;
+            z-index: 2;
         }
 
         .email-input {
             flex: 1;
-            min-width: 250px;
-            padding: 15px 20px;
-            border: none;
+            min-width: 300px;
+            padding: 20px 25px;
+            border: 2px solid var(--dark-cream);
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             outline: none;
-        }
-
-        .email-submit {
-            padding: 15px 30px;
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary-black);
             transition: all 0.3s ease;
         }
 
+        .email-input:focus {
+            border-color: var(--primary-black);
+            background: white;
+            transform: scale(1.02);
+        }
+
+        .email-submit {
+            padding: 20px 35px;
+            background: var(--primary-black);
+            color: var(--primary-cream);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
         .email-submit:hover {
-            background: #ff5252;
-            transform: translateY(-2px);
+            background: var(--primary-dark);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
 
         .success-message {
             display: none;
-            background: #48bb78;
-            color: white;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-top: 1rem;
+            background: var(--primary-black);
+            color: var(--primary-cream);
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         footer {
-            background: #2d3748;
-            color: white;
+            background: var(--primary-black);
+            color: var(--primary-cream);
             text-align: center;
-            padding: 2rem 0;
+            padding: 3rem 0;
+            border-top: 1px solid var(--dark-cream);
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            font-weight: 500;
         }
 
         footer a {
-            color: #4299e1;
+            color: var(--primary-cream);
             text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
         footer a:hover {
+            color: var(--light-cream);
             text-decoration: underline;
         }
 
         @media (max-width: 768px) {
+            .hero {
+                padding: 120px 0 80px;
+            }
+            
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+                line-height: 1.2;
             }
             
             .hero p {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
+                margin-bottom: 2.5rem;
             }
             
             .features h2, .screenshots h2, .email-signup h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .screenshots-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 2rem;
             }
             
             .email-form {
@@ -295,7 +451,43 @@
             }
             
             .email-input {
-                min-width: 300px;
+                min-width: 280px;
+                max-width: 100%;
+            }
+            
+            .email-submit {
+                min-width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .logo {
+                font-size: 1.6rem;
+            }
+            
+            .logo img {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .features h2, .screenshots h2, .email-signup h2 {
+                font-size: 1.8rem;
+            }
+            
+            .email-input {
+                min-width: 250px;
+            }
+            
+            .screenshots-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -313,9 +505,11 @@
     <main>
         <section class="hero">
             <div class="container">
-                <h1>Never Travel Alone Again</h1>
-                <p>Connect with solo travelers worldwide. Create trips, discover activities, and build lasting friendships on your adventures.</p>
-                <a href="#email-signup" class="cta-button">Join the Community</a>
+                <div class="hero-content">
+                    <h1>Never Travel Alone Again</h1>
+                    <p>Connect with solo travelers worldwide. Create trips, discover activities, and build lasting friendships on your adventures.</p>
+                    <a href="#email-signup" class="cta-button">Join the Community</a>
+                </div>
             </div>
         </section>
 
@@ -347,16 +541,16 @@
                 <h2>See LonelyRoad in Action</h2>
                 <div class="screenshots-grid">
                     <div class="screenshot">
-                        <img src="screenshot1.png" alt="Create activities with custom icons and descriptions" loading="lazy">
+                        <img src="IMG_3712.PNG" alt="Create activities with custom icons and descriptions" loading="lazy">
                     </div>
                     <div class="screenshot">
-                        <img src="screenshot2.png" alt="Find nearby travelers and activities on the map" loading="lazy">
+                        <img src="IMG_3713.PNG" alt="Find nearby travelers and activities on the map" loading="lazy">
                     </div>
                     <div class="screenshot">
-                        <img src="screenshot3.png" alt="Plan trips to amazing destinations like London" loading="lazy">
+                        <img src="IMG_3714.PNG" alt="Plan trips to amazing destinations like London" loading="lazy">
                     </div>
                     <div class="screenshot">
-                        <img src="screenshot4.png" alt="View your trips and discover new adventures" loading="lazy">
+                        <img src="IMG_3715.PNG" alt="View your trips and discover new adventures" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -432,9 +626,11 @@
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.background = 'rgba(230, 213, 195, 0.98)';
+                header.style.boxShadow = '0 6px 35px rgba(0, 0, 0, 0.4)';
             } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.background = 'rgba(230, 213, 195, 0.95)';
+                header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
             }
         });
     </script>
