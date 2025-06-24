@@ -560,8 +560,8 @@
             <div class="container">
                 <h2>Be the First to Know</h2>
                 <p>Get notified when LonelyRoad launches and start connecting with travelers worldwide.</p>
-                <form class="email-form" id="emailForm">
-                    <input type="email" class="email-input" placeholder="Enter your email address" required>
+                <form class="email-form" id="emailForm" action="https://formspree.io/f/mwpbrovg" method="POST">
+                    <input type="email" name="email" class="email-input" placeholder="Enter your email address" required>
                     <button type="submit" class="email-submit">Notify Me</button>
                 </form>
                 <div class="success-message" id="successMessage">
@@ -593,11 +593,14 @@
         });
 
         // Email form submission
-        document.getElementById('emailForm').addEventListener('submit', function(e) {
+        document.getElementById('emailForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const email = this.querySelector('.email-input').value;
+            const emailInput = this.querySelector('.email-input');
+            const email = emailInput.value.trim();
             const successMessage = document.getElementById('successMessage');
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
             
             // Simple email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -606,20 +609,40 @@
                 return;
             }
             
-            // Simulate form submission (replace with actual endpoint)
-            // In production, you'd send this to your backend or email service
-            console.log('Email submitted:', email);
+            // Disable button and show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
             
-            // Show success message
-            successMessage.style.display = 'block';
-            
-            // Reset form
-            this.reset();
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                successMessage.style.display = 'none';
-            }, 5000);
+            try {
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: new FormData(this),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Show success message
+                    successMessage.style.display = 'block';
+                    // Reset form
+                    this.reset();
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.message || 'Something went wrong');
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('Failed to submit form. Please try again later.');
+            } finally {
+                // Re-enable button and restore text
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            }
         });
 
         // Add scroll effect to header
